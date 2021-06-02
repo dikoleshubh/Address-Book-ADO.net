@@ -19,7 +19,7 @@ namespace AddressBookADonet
 
             Console.WriteLine(repo.EditContactUsingName("Cha", "arma", "k21") ? "Update done successfully\n" : "Update failed");
             Console.WriteLine(repo.DeleteContact("cha", "arma") ? "Deleted Contact successfully\n" : "Update failed");
-            repo.GetCountByCityOrState();
+            repo.RetrieveContactFromCityOrStateName();
         }
         public static void AddNewContactDetails()
         {
