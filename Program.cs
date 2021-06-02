@@ -29,6 +29,18 @@ namespace AddressBookADonet
 
             repo.AddContact(addressBookModel);
 
+            AddressBookModel addressBookModel1 = new AddressBookModel();
+            addressBookModel.FirstName = "Edsfsdgdugawa";
+            addressBookModel.LastName = "Cofgnan";
+            addressBookModel.Address = "Raidsfgadh";
+            addressBookModel.City = "Raighasdfadd";
+            addressBookModel.State = "Maharastra";
+            addressBookModel.Zip = 423233;
+            addressBookModel.PhoneNumber = 823589533;
+            addressBookModel.EmailId = "Hasaretkuna@gmail.com";
+            addressBookModel.AddressBookName = "AddrrteasdessBook2";
+            addressBookModel.AddressBookType = "Frieretertnds";
+            repo.EditContactUsingPersonName(addressBookModel1);
             Console.ReadLine();
         }
         
