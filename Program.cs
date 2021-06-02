@@ -14,6 +14,7 @@ namespace AddressBookADonet
             Console.WriteLine("Welcome to Address Book Database Project with ADO.NET");
             AddressBookRepo repo = new AddressBookRepo();
             repo.CheckConnection();
+            repo.GetAllContact();
             Console.ReadLine();
         }
     }
