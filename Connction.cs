@@ -138,6 +138,40 @@ namespace AddressBookADonet
                 this.connection.Close();
             }
         }
+        public void EditContactUsingPersonName(AddressBookModel model)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    string updateQuery = @"UPDATE AddressBookProfiles SET last_name = @last_name, city = @city, state = @state, email = @email, addressbook_name = @addressbook_name, addressbook_type = @addressbook_type WHERE first_name = @first_name;";
+                    SqlCommand command = new SqlCommand(updateQuery, connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@City", model.City);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@EmailID", model.EmailId);
+                    command.Parameters.AddWithValue("@AddressBookName", model.AddressBookName);
+                    command.Parameters.AddWithValue("@AddressBookType", model.AddressBookType);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Entry Updated successfully");
+                    this.connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
 
       
     }
