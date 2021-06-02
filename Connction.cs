@@ -109,16 +109,16 @@ namespace AddressBookADonet
                 {
                     SqlCommand command = new SqlCommand("SpAddContactInAddressBook", this.connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@first_name", model.FirstName);
-                    command.Parameters.AddWithValue("@last_name", model.LastName);
-                    command.Parameters.AddWithValue("@address", model.Address);
-                    command.Parameters.AddWithValue("@city", model.City);
-                    command.Parameters.AddWithValue("@state", model.State);
-                    command.Parameters.AddWithValue("@zip", model.Zip);
-                    command.Parameters.AddWithValue("@phone_number", model.PhoneNumber);
-                    command.Parameters.AddWithValue("@email", model.EmailId);
-                    command.Parameters.AddWithValue("@addressbook_name", model.AddressBookName);
-                    command.Parameters.AddWithValue("@addressbook_type", model.AddressBookType);
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@City", model.City);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@EmailID", model.EmailId);
+                    command.Parameters.AddWithValue("@AddressBookName", model.AddressBookName);
+                    command.Parameters.AddWithValue("@AddressBookType", model.AddressBookType);
                     this.connection.Open();
                     var result = command.ExecuteNonQuery();
                     this.connection.Close();
@@ -138,6 +138,8 @@ namespace AddressBookADonet
                 this.connection.Close();
             }
         }
+
+      
     }
 
 
