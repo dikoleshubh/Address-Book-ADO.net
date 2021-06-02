@@ -101,6 +101,44 @@ namespace AddressBookADonet
                 return connection;
             }
         }
+        public bool AddContact(AddressBookModel model)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    SqlCommand command = new SqlCommand("SpAddContactInAddressBook", this.connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@first_name", model.FirstName);
+                    command.Parameters.AddWithValue("@last_name", model.LastName);
+                    command.Parameters.AddWithValue("@address", model.Address);
+                    command.Parameters.AddWithValue("@city", model.City);
+                    command.Parameters.AddWithValue("@state", model.State);
+                    command.Parameters.AddWithValue("@zip", model.Zip);
+                    command.Parameters.AddWithValue("@phone_number", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@email", model.EmailId);
+                    command.Parameters.AddWithValue("@addressbook_name", model.AddressBookName);
+                    command.Parameters.AddWithValue("@addressbook_type", model.AddressBookType);
+                    this.connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    this.connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
+
 
 }
