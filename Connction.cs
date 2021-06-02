@@ -101,13 +101,62 @@ namespace AddressBookADonet
                 return connection;
             }
         }
-        public bool AddContact(AddressBookModel model)
+       
+
+
+        public bool AddDataToTable(AddressBookModel model)
+        {
+            /// Creates a new connection for every method to avoid "ConnectionString property not initialized" exception
+            DBConnection dbc = new DBConnection();
+            connection = dbc.GetConnection();
+            try
+            {
+                /// Using the connection established
+                using (connection)
+                {
+                    /// Implementing the stored procedure
+                    SqlCommand command = new SqlCommand("dbo.spAddContactDetails", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@AddressDetails", model.Address);
+                    command.Parameters.AddWithValue("@City", model.City);
+                    command.Parameters.AddWithValue("@StateName", model.State);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    command.Parameters.AddWithValue("@PhoneNo", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@Email", model.EmailId);
+                    command.Parameters.AddWithValue("@addressBookType", model.AddressBookType);
+                    command.Parameters.AddWithValue("@addressBookName", model.AddressBookName);
+
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    /// Return the result of the transaction i.e. the dml operation to update data
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            /// Catching any type of exception generated during the run time
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public void EditContactUsingPersonName(AddressBookModel model)
         {
             try
             {
                 using (this.connection)
                 {
-                    SqlCommand command = new SqlCommand("SpAddContactInAddressBook", this.connection);
+                    string updateQuery = @"UPDATE address_book SET last_name = @last_name, city = @city, state = @state, email = @email, addressbook_name = @addressbook_name, addressbook_type = @addressbook_type WHERE first_name = @first_name;";
+                    SqlCommand command = new SqlCommand(updateQuery, connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@FirstName", model.FirstName);
                     command.Parameters.AddWithValue("@LastName", model.LastName);
@@ -119,14 +168,10 @@ namespace AddressBookADonet
                     command.Parameters.AddWithValue("@EmailID", model.EmailId);
                     command.Parameters.AddWithValue("@AddressBookName", model.AddressBookName);
                     command.Parameters.AddWithValue("@AddressBookType", model.AddressBookType);
-                    this.connection.Open();
-                    var result = command.ExecuteNonQuery();
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Entry Updated successfully");
                     this.connection.Close();
-                    if (result != 0)
-                    {
-                        return true;
-                    }
-                    return false;
                 }
             }
             catch (Exception e)
@@ -139,7 +184,7 @@ namespace AddressBookADonet
             }
         }
 
-      
+
     }
 
 
