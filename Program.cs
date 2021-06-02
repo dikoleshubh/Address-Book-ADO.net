@@ -16,48 +16,25 @@ namespace AddressBookADonet
             AddressBookModel addressBookModel = new AddressBookModel();
             repo.CheckConnection();
             repo.GetAllContact();
-            //addressBookModel.FirstName = "Edugawa";
-            //addressBookModel.LastName = "Conan";
-            //addressBookModel.Address = "Raigadh";
-            //addressBookModel.City = "Raighad";
-            //addressBookModel.State = "Maharastra";
-            //addressBookModel.Zip = 423233;
-            //addressBookModel.PhoneNumber = 823589533;
-            //addressBookModel.EmailId = "Hakuna@gmail.com";
-            //addressBookModel.AddressBookName = "AddressBook2";
-            //addressBookModel.AddressBookType = "Friends";
 
-            //repo.AddContact(addressBookModel);
-
-            //AddressBookModel addressBookModel1 = new AddressBookModel();
-            //addressBookModel.FirstName = "Edsfsdgdugawa";
-            //addressBookModel.LastName = "Cofgnan";
-            //addressBookModel.Address = "Raidsfgadh";
-            //addressBookModel.City = "Raighasdfadd";
-            //addressBookModel.State = "Maharastra";
-            //addressBookModel.Zip = 423233;
-            //addressBookModel.PhoneNumber = 823589533;
-            //addressBookModel.EmailId = "Hasaretkuna@gmail.com";
-            //addressBookModel.AddressBookName = "AddrrteasdessBook2";
-            //addressBookModel.AddressBookType = "Frieretertnds";
-            //repo.EditContactUsingPersonName(addressBookModel1);
-
-            Console.ReadLine();
+            Console.WriteLine(repo.EditContactUsingName("Cha", "arma", "k21") ? "Update done successfully\n" : "Update failed");
+            Console.WriteLine(repo.DeleteContact("cha", "arma") ? "Deleted Contact successfully\n" : "Update failed");
+            repo.GetCountByCityOrState();
         }
         public static void AddNewContactDetails()
         {
             AddressBookRepo repository = new AddressBookRepo();
             AddressBookModel model = new AddressBookModel();
-            model.FirstName = "Richa";
-            model.LastName = "Sharma";
-            model.Address = "Karauli";
-            model.City = "Karauli";
-            model.State = "Rajasthan";
+            model.FirstName = "Cha";
+            model.LastName = "arma";
+            model.Address = "KWSD";
+            model.City = "Ksad";
+            model.State = "Rsthan";
             model.Zip = 555666;
             model.PhoneNumber = 8411563241;
-            model.EmailId = "Richas@gmail.com";
-            model.AddressBookName = "Ritika";
-            model.AddressBookType = "Friend";
+            model.EmailId = "sadasf@gmail.com";
+            model.AddressBookName = "Rasasda";
+            model.AddressBookType = "Frasdasd";
             Console.WriteLine(repository.AddDataToTable(model) ? "Record inserted successfully\n" : "Failed");
         }
 
