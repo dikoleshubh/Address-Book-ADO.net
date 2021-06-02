@@ -19,7 +19,7 @@ namespace AddressBookADonet
                 using (this.connection)
                 {
                     connection.Open();
-                    Console.WriteLine("Database Connection OK");
+                    Console.WriteLine("Database Connection is OK");
                 }
             }
             catch
