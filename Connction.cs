@@ -270,6 +270,77 @@ namespace AddressBookADonet
                 connection.Close();
             }
         }
+        public void CountByCityOrState()
+        {
+            Console.WriteLine("Enter the choice you want to retrieve Record");
+            Console.WriteLine("1.City.");
+            Console.WriteLine("2.State.");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter the City or State by which you want the Record:-");
+            string cityOrState = Console.ReadLine();
+            GetCountOfCityOrState(cityOrState, choice);
+        }
+        ///  UC7 Gets the count of people in a state or city.
+
+        public void GetCountOfCityOrState(string newData, int choice)
+        {
+            /// Creates a new connection for every method to avoid "ConnectionString property not initialized" exception
+            DBConnection dbc = new DBConnection();
+            // Calling the Get connection method to establish the connection to the Sql Server
+            connection = dbc.GetConnection();
+            string query = "";
+            try
+            {
+                using (connection)
+                {
+                    if (choice == 1)
+                    {
+                        /// Query to get the data from the table
+                        query = @"select Count(FirstName) from dbo.Address_Book
+                                   where City=@parameter group by City";
+                    }
+                    else if (choice == 2)
+                    {
+                        // Query to get the data from the table
+                        query = @"select Count(firstName) from dbo.Address_Book
+                                   where StateName=@parameter group by StateName";
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong Choice....");
+                    }
+                    /// Impementing the command on the connection fetched database table
+                    SqlCommand command = new SqlCommand(query, connection);
+                    /// Binding the parameter to the formal parameters
+                    command.Parameters.AddWithValue("@parameter", newData);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            int count = reader.GetInt32(0);
+                            Console.WriteLine($"Counting Number of Contacts Stored in {newData} = {count}");
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data found");
+                    }
+                    reader.Close();
+                }
+            }
+            /// Catching any type of exception generated during the run time
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
     }
     public class DBConnection
